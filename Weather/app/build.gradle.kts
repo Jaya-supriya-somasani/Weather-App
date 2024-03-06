@@ -30,6 +30,10 @@ android {
             )
         }
     }
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -70,11 +74,6 @@ dependencies {
 
     // retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
-
-
-//    // coroutine
-//    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
-//    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
 
     //OKHTTP
     implementation("com.squareup.okhttp3:okhttp:4.11.0")

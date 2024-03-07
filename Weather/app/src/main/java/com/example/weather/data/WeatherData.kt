@@ -3,6 +3,7 @@ package com.example.weather.data
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
+import kotlin.math.round
 
 @Parcelize
 data class WeatherData(
@@ -43,7 +44,7 @@ data class WeatherData(
     val name: String,
 
     @SerializedName("cod")
-    val cod: Int
+    val cod: Int,
 ) : Parcelable
 
 @Parcelize
@@ -89,7 +90,10 @@ data class Main(
 
     @SerializedName("humidity")
     val humidity: Int
-) : Parcelable
+) : Parcelable{
+    val celsius: Int
+        get() = round(temp - 273.15).toInt()
+}
 
 @Parcelize
 data class Wind(

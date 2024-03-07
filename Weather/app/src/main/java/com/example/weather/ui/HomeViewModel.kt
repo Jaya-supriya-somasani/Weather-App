@@ -30,16 +30,18 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(private val repository: WeatherApiHelper) : ViewModel() {
 
     val cityName = MutableStateFlow("")
+    val tempInCelsius = MutableStateFlow(0)
     var foreCastWeather = MutableStateFlow<ForeCaseWeather?>(
         null
     )
+    private val currentWeather = MutableStateFlow<WeatherData?>(null)
 
     fun getWeather() {
         viewModelScope.launch {
             when (val result = repository.getWeather()) {
                 is Result.Success -> {
                     if (result.data != null) {
-                        val weatherData = WeatherData(
+                        currentWeather.value = WeatherData(
                             coord = Coord(
                                 lon = result.data.coord.lon,
                                 lat = result.data.coord.lat
@@ -83,8 +85,14 @@ class HomeViewModel @Inject constructor(private val repository: WeatherApiHelper
                             cod = result.data.cod
                         )
 
-                        Log.d("Current-Weather", "---- Weather-data ---- $weatherData")
+                        Log.d("Current-Weather", "---- Weather-data ---- ${currentWeather.value}")
                         cityName.value = result.data.name
+                        tempInCelsius.value = result.data.main.celsius
+                        Log.d(
+                            "Current-Weather",
+                            "---- tempInCelsius ---- ${result.data.main.celsius.toString()}"
+                        )
+
                     } else {
                         Log.d("Current-Weather", "---- Weather-data is null")
                     }

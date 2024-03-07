@@ -54,6 +54,11 @@ class HomeFragment : Fragment() {
             }
         }
 
+        viewLifecycleOwner.safeLaunchWhenResumed {
+            viewModel.tempInCelsius.collectLatest {
+                binding.tempTv.text = it.toString()
+            }
+        }
     }
 
 
@@ -61,6 +66,6 @@ class HomeFragment : Fragment() {
         binding.viewModel = viewModel
         viewModel.getWeather()
         viewModel.getForeCastWeather()
-        binding.weekDayRecyclerView.adapter=adapter
+        binding.weekDayRecyclerView.adapter = adapter
     }
 }

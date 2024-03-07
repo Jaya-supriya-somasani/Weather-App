@@ -7,6 +7,9 @@ import com.example.weather.databinding.ItemWeekTempBinding
 import javax.inject.Inject
 
 class WeeksAdapter @Inject constructor() : BaseAdapter<WeatherDetails>() {
+    override fun submitList(data: List<WeatherDetails>?) {
+        super.submitList(data?.distinctBy { it.weekDay })
+    }
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -16,9 +19,13 @@ class WeeksAdapter @Inject constructor() : BaseAdapter<WeatherDetails>() {
 
     private inner class WeeksTempHolder(binding: ItemWeekTempBinding) :
         BaseViewHolder<ItemWeekTempBinding, WeatherDetails>(binding) {
-
         override fun onBind(item: WeatherDetails) {
-            binding.weekDayTv.text = item.dateText
+            try {
+                binding.weekDayTv.text = item.weekDay
+                binding.tempTv.text = "${item.main.celsius} C"
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 }

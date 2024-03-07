@@ -3,6 +3,9 @@ package com.example.weather.data
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
+import java.text.SimpleDateFormat
+import java.util.Locale
+import kotlin.math.round
 
 @Parcelize
 data class ForeCaseWeather(
@@ -42,10 +45,15 @@ data class WeatherDetails(
     val sys: SysInfo,
     @SerializedName("dt_txt")
     val dateText: String
-) : Parcelable
+) : Parcelable {
+    private val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+    private val outputFormat = SimpleDateFormat("EEEE", Locale.getDefault())
+    private val date = inputFormat.parse(this.dateText)
+    val weekDay = outputFormat.format(date)
+
+}
 
 @Parcelize
-
 data class MainData(
     @SerializedName("temp")
     val temp: Double,
@@ -73,7 +81,9 @@ data class MainData(
 
     @SerializedName("temp_kf")
     val tempKf: Double
-) : Parcelable
+) : Parcelable {
+    val celsius: Int by lazy { round(temp - 273.15).toInt() }
+}
 
 @Parcelize
 data class WeatherInfo(

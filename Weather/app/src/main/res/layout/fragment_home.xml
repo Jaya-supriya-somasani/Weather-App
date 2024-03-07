@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.example.weather.ui.HomeViewModel" />
@@ -15,46 +16,66 @@
         android:background="#F5F6F7">
 
         <TextView
-            isVisible="@{!viewModel.isErrorTriggered}"
             android:id="@+id/tempTv"
+
+            isVisible="@{!viewModel.isErrorTriggered}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="56dp"
+            android:fontFamily="@font/roboto_black"
             android:lineSpacingMultiplier="1.2"
             android:textColor="#2A2A2A"
             android:textSize="96sp"
             app:contentPadding="0dp"
-            android:fontFamily="@font/roboto_black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="20°" />
 
         <TextView
-            isVisible="@{!viewModel.isErrorTriggered}"
             android:id="@+id/locationTv"
+            isVisible="@{!viewModel.isErrorTriggered}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_thin"
             android:textColor="#556799"
             android:textSize="36sp"
-            android:fontFamily="@font/roboto_thin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tempTv"
             tools:text="Bangalore" />
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardView"
             isVisible="@{!viewModel.isErrorTriggered}"
-            android:id="@+id/weekDayRecyclerView"
-            android:background="@color/white"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/locationTv"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:itemCount="4"
             android:layout_marginTop="36dp"
-            tools:listitem="@layout/item_week_temp" />
+            android:shadowColor="@android:color/darker_gray"
+            app:cardCornerRadius="0dp"
+            app:cardElevation="20dp"
+            app:cardPreventCornerOverlap="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/locationTv"
+            app:strokeColor="@android:color/transparent"
+            app:strokeWidth="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/weekDayRecyclerView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:itemCount="4"
+                    tools:listitem="@layout/item_week_temp" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

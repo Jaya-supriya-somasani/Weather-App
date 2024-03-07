@@ -1,5 +1,6 @@
 package com.example.weather.ui
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -38,6 +39,17 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setUp()
         initObservers(viewLifecycleOwner)
+        startCardAnimation()
+
+    }
+
+    private fun startCardAnimation() {
+        val cardView = binding.cardView
+        val initialTranslationY = cardView.translationY
+        cardView.translationY = initialTranslationY + 1000f
+        val animator = ObjectAnimator.ofFloat(cardView, "translationY", initialTranslationY)
+        animator.duration = 4000
+        animator.start()
     }
 
 

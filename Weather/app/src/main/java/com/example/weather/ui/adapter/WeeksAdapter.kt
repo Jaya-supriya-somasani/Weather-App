@@ -20,6 +20,5 @@ class WeeksAdapter @Inject constructor() : BaseAdapter<WeatherDetails>() {
         override fun onBind(item: WeatherDetails) {
             binding.weekDayTv.text = item.dateText
         }
-
     }
 }

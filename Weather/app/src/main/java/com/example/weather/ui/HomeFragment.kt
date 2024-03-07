@@ -56,7 +56,7 @@ class HomeFragment : Fragment() {
 
         viewLifecycleOwner.safeLaunchWhenResumed {
             viewModel.tempInCelsius.collectLatest {
-                binding.tempTv.text = it.toString()
+                binding.tempTv.text = "${it}°"
             }
         }
     }

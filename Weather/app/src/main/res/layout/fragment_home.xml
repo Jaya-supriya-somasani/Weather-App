@@ -23,10 +23,11 @@
             android:textColor="#2A2A2A"
             android:textSize="96sp"
             app:contentPadding="0dp"
+            android:fontFamily="@font/roboto_black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="20deg" />
+            tools:text="20°" />
 
         <TextView
             android:id="@+id/locationTv"
@@ -34,6 +35,7 @@
             android:layout_height="wrap_content"
             android:textColor="#556799"
             android:textSize="36sp"
+            android:fontFamily="@font/roboto_thin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tempTv"
@@ -41,6 +43,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/weekDayRecyclerView"
+            android:background="@color/white"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -48,6 +51,7 @@
             app:layout_constraintTop_toBottomOf="@id/locationTv"
             app:layout_constraintStart_toStartOf="parent"
             tools:itemCount="4"
+            android:layout_marginTop="36dp"
             tools:listitem="@layout/item_week_temp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

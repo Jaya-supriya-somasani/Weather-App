@@ -10,6 +10,7 @@ import androidx.lifecycle.LifecycleOwner
 import com.example.weather.databinding.FragmentHomeBinding
 import com.example.weather.ui.adapter.WeeksAdapter
 import com.example.weather.utils.safeLaunchWhenResumed
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
@@ -59,8 +60,26 @@ class HomeFragment : Fragment() {
                 binding.tempTv.text = "${it}°"
             }
         }
+        viewLifecycleOwner.safeLaunchWhenResumed {
+            viewModel.isErrorTriggered.collectLatest { isError ->
+                if (isError) {
+                    showSnackBar()
+                    viewModel.isErrorTriggered.value = false
+                }
+            }
+        }
     }
 
+    private fun showSnackBar() {
+        this.view?.let {
+            Snackbar.make(it, "Something went wrong", Snackbar.LENGTH_LONG)
+                .setAction("RETRY") {
+                    viewModel.getWeather()
+                    viewModel.getForeCastWeather()
+                }
+                .show()
+        }
+    }
 
     private fun setUp() {
         binding.viewModel = viewModel

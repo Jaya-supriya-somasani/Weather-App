@@ -15,6 +15,7 @@
         android:background="#F5F6F7">
 
         <TextView
+            isVisible="@{!viewModel.isErrorTriggered}"
             android:id="@+id/tempTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,6 +31,7 @@
             tools:text="20°" />
 
         <TextView
+            isVisible="@{!viewModel.isErrorTriggered}"
             android:id="@+id/locationTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -42,6 +44,7 @@
             tools:text="Bangalore" />
 
         <androidx.recyclerview.widget.RecyclerView
+            isVisible="@{!viewModel.isErrorTriggered}"
             android:id="@+id/weekDayRecyclerView"
             android:background="@color/white"
             android:layout_width="0dp"

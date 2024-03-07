@@ -35,12 +35,14 @@ class HomeViewModel @Inject constructor(private val repository: WeatherApiHelper
         null
     )
     private val currentWeather = MutableStateFlow<WeatherData?>(null)
+    val isErrorTriggered = MutableStateFlow(false)
 
     fun getWeather() {
         viewModelScope.launch {
             when (val result = repository.getWeather()) {
                 is Result.Success -> {
                     if (result.data != null) {
+                        isErrorTriggered.value = false
                         currentWeather.value = WeatherData(
                             coord = Coord(
                                 lon = result.data.coord.lon,
@@ -88,10 +90,6 @@ class HomeViewModel @Inject constructor(private val repository: WeatherApiHelper
                         Log.d("Current-Weather", "---- Weather-data ---- ${currentWeather.value}")
                         cityName.value = result.data.name
                         tempInCelsius.value = result.data.main.celsius
-                        Log.d(
-                            "Current-Weather",
-                            "---- tempInCelsius ---- ${result.data.main.celsius.toString()}"
-                        )
 
                     } else {
                         Log.d("Current-Weather", "---- Weather-data is null")
@@ -99,6 +97,7 @@ class HomeViewModel @Inject constructor(private val repository: WeatherApiHelper
                 }
 
                 is Result.Error -> {
+                    isErrorTriggered.value = true
                     Log.d("Current-Weather", "Failure-message ${result.exception.message}")
                 }
 
@@ -112,6 +111,7 @@ class HomeViewModel @Inject constructor(private val repository: WeatherApiHelper
             when (val result = repository.getForeCastWeather()) {
                 is Result.Success -> {
                     if (result.data != null) {
+                        isErrorTriggered.value = false
                         foreCastWeather.value = ForeCaseWeather(
                             cod = result.data.cod,
                             message = result.data.message,
@@ -172,6 +172,7 @@ class HomeViewModel @Inject constructor(private val repository: WeatherApiHelper
                 }
 
                 is Result.Error -> {
+                    isErrorTriggered.value = true
                     Log.d(
                         "Forecast-Weather",
                         "---Failure Forecast-message--- ${result.exception.message}"

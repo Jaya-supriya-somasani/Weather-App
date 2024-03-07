@@ -1,5 +1,6 @@
 package com.example.weather.ui
 
+import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -39,8 +40,6 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setUp()
         initObservers(viewLifecycleOwner)
-        startCardAnimation()
-
     }
 
     private fun startCardAnimation() {
@@ -69,7 +68,9 @@ class HomeFragment : Fragment() {
 
         viewLifecycleOwner.safeLaunchWhenResumed {
             viewModel.tempInCelsius.collectLatest {
-                binding.tempTv.text = "${it}°"
+                if (it.isNotBlank()){
+                    binding.tempTv.text = "${it}°"
+                }
             }
         }
         viewLifecycleOwner.safeLaunchWhenResumed {
@@ -93,10 +94,39 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun startAnimation() {
+        binding.tempTv.visibility = View.INVISIBLE
+        val animationView = binding.loadingAnimation
+        animationView.setAnimation("loading_anim.json")
+        animationView.playAnimation()
+
+        animationView.addAnimatorListener(object : Animator.AnimatorListener {
+            override fun onAnimationStart(animation: Animator) {
+            }
+
+            override fun onAnimationEnd(animation: Animator) {
+                hideLoadingAnimation()
+                viewModel.getWeather()
+                viewModel.getForeCastWeather()
+                startCardAnimation()
+                binding.tempTv.visibility = View.VISIBLE
+            }
+
+            override fun onAnimationCancel(animation: Animator) {
+            }
+
+            override fun onAnimationRepeat(animation: Animator) {
+            }
+        })
+    }
+
+    private fun hideLoadingAnimation() {
+        binding.loadingAnimation.visibility = View.GONE
+    }
+
     private fun setUp() {
         binding.viewModel = viewModel
-        viewModel.getWeather()
-        viewModel.getForeCastWeather()
         binding.weekDayRecyclerView.adapter = adapter
+        startAnimation()
     }
 }

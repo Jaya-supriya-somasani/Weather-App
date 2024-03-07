@@ -30,7 +30,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(private val repository: WeatherApiHelper) : ViewModel() {
 
     val cityName = MutableStateFlow("")
-    val tempInCelsius = MutableStateFlow(0)
+    val tempInCelsius = MutableStateFlow("")
     var foreCastWeather = MutableStateFlow<ForeCaseWeather?>(
         null
     )
@@ -89,7 +89,7 @@ class HomeViewModel @Inject constructor(private val repository: WeatherApiHelper
 
                         Log.d("Current-Weather", "---- Weather-data ---- ${currentWeather.value}")
                         cityName.value = result.data.name
-                        tempInCelsius.value = result.data.main.celsius
+                        tempInCelsius.value = result.data.main.celsius.toString()
 
                     } else {
                         Log.d("Current-Weather", "---- Weather-data is null")

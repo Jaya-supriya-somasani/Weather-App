@@ -11,7 +11,7 @@
             android:id="@+id/weekDayTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="30dp"
             android:textColor="#2A2A2A"
             android:textSize="16sp"
             android:fontFamily="@font/roboto_regular"
@@ -23,7 +23,7 @@
             android:id="@+id/tempTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="30dp"
             android:textColor="#2A2A2A"
             android:textSize="16sp"
             android:fontFamily="@font/roboto_regular"
@@ -35,7 +35,7 @@
             android:id="@+id/dividerView"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="28dp"
             android:background="@android:color/darker_gray"
             app:layout_constraintTop_toBottomOf="@id/weekDayTv" />
 

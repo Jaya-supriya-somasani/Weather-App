@@ -47,7 +47,7 @@ class HomeFragment : Fragment() {
         val initialTranslationY = cardView.translationY
         cardView.translationY = initialTranslationY + 1000f
         val animator = ObjectAnimator.ofFloat(cardView, "translationY", initialTranslationY)
-        animator.duration = 4000
+        animator.duration = 3000
         animator.start()
     }
 
